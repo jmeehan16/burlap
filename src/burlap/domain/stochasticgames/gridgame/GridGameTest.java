@@ -174,7 +174,7 @@ public class GridGameTest implements DomainGenerator {
 		
 		GridGameTest gg = new GridGameTest();
 		
-		System.out.println("Grid Game Test");
+		System.out.println("Grid Game Test go");
 		
 		SGDomain d = (SGDomain)gg.generateDomain();
 		
