@@ -25,6 +25,7 @@
     	<classpath>
 			<fileset dir="${lib}">
 	  			<include name="*.jar"/>
+				<include name="*.zip"/>
 			</fileset>
       	</classpath>
       </javac>
