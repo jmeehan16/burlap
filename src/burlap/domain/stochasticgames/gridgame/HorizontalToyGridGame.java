@@ -61,7 +61,7 @@ public class HorizontalToyGridGame extends  GridGame {
 		JointActionModel jam = new GridGameStandardMechanics(d);
 		
 		Visualizer v = GGVisualizer.getVisualizer(gameWidth, gameHeight);
-		SGVisualExplorer exp = new SGVisualExplorer(d, v, s, jam);
+		SGVisualExplorer exp = new SGVisualExplorer(d, v, s, jam,gameHeight,gameWidth);
 		
 		exp.setJAC("c"); //press c to execute the constructed joint action
 		
