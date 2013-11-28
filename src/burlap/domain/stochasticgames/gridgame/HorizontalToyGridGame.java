@@ -36,8 +36,6 @@ public class HorizontalToyGridGame extends  GridGame {
 		
 		GridGame gg = new HorizontalToyGridGame();
 		
-		System.out.println("Grid Game Test go");
-		
 		int gameWidth = 7;
 		int gameHeight = 1;
 		int numGoals = 2;
@@ -45,10 +43,10 @@ public class HorizontalToyGridGame extends  GridGame {
 		
 		State s = getCleanState(d, 2, numGoals, 3, 2, gameWidth, gameHeight);
 		
-		setAgent(s, 0, 2, 0, 0);
-		setAgent(s, 1, 5, 0, 1);
+		setAgent(s, 0, 2, 0, 1);
+		setAgent(s, 1, 5, 0, 4);
 		
-		setGoal(s, 0, 0, 0, 1);
+		setGoal(s, 0, 0, 0, 5);
 		setGoal(s, 1, 3, 0, 0); // neutral
 		
 		int numOfHorizontalCells = 0; //cells

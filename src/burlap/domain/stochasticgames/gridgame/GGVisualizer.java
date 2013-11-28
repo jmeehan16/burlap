@@ -43,6 +43,7 @@ public class GGVisualizer {
 		agentColors.add(Color.blue);
 		agentColors.add(Color.magenta);
 		agentColors.add(Color.orange);
+		agentColors.add(Color.red);
 		
 		List <Color> goalColors = new ArrayList<Color>();
 		goalColors.add(Color.gray);
