@@ -81,8 +81,7 @@ public class SGVisualExplorer extends JFrame {
 	 * @param h the height of the state visualizer
 	 */
 	public SGVisualExplorer(SGDomain domain, Visualizer painter, State baseState, JointActionModel jam, int w, int h){
-		//this was needed to be changed so that if the game is 1x7 cells it is not 1x7 pixels
-		this.init(domain, painter, baseState, jam, 800/w, 800/h);
+		this.init(domain, painter, baseState, jam, w, h);
 	}
 	
 	protected void init(SGDomain domain, Visualizer painter, State baseState, JointActionModel jam, int w, int h){
