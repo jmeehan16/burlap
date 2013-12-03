@@ -8,6 +8,9 @@ import burlap.oomdp.stochasticgames.JointActionModel;
 import burlap.oomdp.stochasticgames.SGDomain;
 import burlap.oomdp.stochasticgames.explorers.SGVisualExplorer;
 import burlap.oomdp.visualizer.Visualizer;
+import burlap.behavior.statehashing.DiscreteStateHashFactory;
+import burlap.behavior.stochasticgame.agents.naiveq.*;
+import burlap.behavior.stochasticgame.agents.naiveq.coopq.*;
 
 /**
  * The GridGame domain is much like the GridWorld domain, except for arbitrarily many agents in
@@ -28,6 +31,7 @@ public class PrisonerGridGame extends  GridGame {
 	public static void main(String [] args){
 		
 		GridGame gg = new PrisonerGridGame();
+		DiscreteStateHashFactory hashingFactory = new DiscreteStateHashFactory();
 		
 		int gameWidth = 9;
 		int gameHeight = 1;
@@ -45,6 +49,13 @@ public class PrisonerGridGame extends  GridGame {
 		
 		int numOfHorizontalCells = 0; //cells
 		setHorizontalWall(s, 2, 4, 1, numOfHorizontalCells, 1);
+		
+		
+		SGQLAgent p1 = new SGQLAgent(d, 1, 0.2, hashingFactory);
+		SGQLAgent p2 = new SGQLAgent(d, 1, 0.2, hashingFactory);
+		
+		p1.setInternalRewardFunction(new CoopQJointReward(d));
+		p2.setInternalRewardFunction(new CoopQJointReward(d));
 		
 		
 		//System.out.println(s.getCompleteStateDescription());
