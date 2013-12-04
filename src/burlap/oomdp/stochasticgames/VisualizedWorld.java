@@ -27,17 +27,6 @@ public class VisualizedWorld extends World {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * Sets an agent's attribute values
-	 * @param s the state in which the agent exists
-	 * @param i indicates the ith agent object whose values should be set
-	 * @param x the x position of the agent
-	 * @param y the y position of the agent
-	 * @param pn the player number of the agent
-	 */
-	public void setAgent(State s, int i, int x, int y, int pn){
-		this.game.setAgent(s, i, x, y, pn);
-	}
 	
 	
 	/**

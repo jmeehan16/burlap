@@ -19,7 +19,7 @@ public abstract class GridGameRevisited extends GridGame {
 	int numGoals;
 	
 
-	public State generateState(List<Agent> agents,Domain domain) {
+	public abstract State generateState(List<Agent> agents,Domain domain);/*{
 		
 		//create a state that is the same as the one in the GridGame main method
 		
@@ -52,7 +52,7 @@ public abstract class GridGameRevisited extends GridGame {
 		
 		return s;
 		
-	}
+	}*/
 	
 	
 	public int getWidth(){
