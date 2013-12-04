@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import burlap.debugtools.DPrint;
+import burlap.domain.stochasticgames.gridgame.GGVisualizer;
 import burlap.oomdp.auxiliary.StateAbstraction;
 import burlap.oomdp.auxiliary.common.NullAbstraction;
 import burlap.oomdp.core.State;
 import burlap.oomdp.core.TerminalFunction;
+import burlap.oomdp.stochasticgames.explorers.SGVisualExplorer;
+import burlap.oomdp.visualizer.Visualizer;
 
 
 /**
@@ -39,6 +42,9 @@ public class World {
 	
 	
 	protected JointAction						lastJointAction;
+	
+	protected Visualizer						vis;
+	protected SGVisualExplorer 					exp;
 	
 	
 	protected int								debugId;
@@ -83,7 +89,7 @@ public class World {
 		
 		agentCumulativeReward = new HashMap<String, Double>();
 		
-		
+		vis = GGVisualizer.getVisualizer(5, 5);
 		
 		debugId = 284673923;
 	}
@@ -163,16 +169,31 @@ public class World {
 	/**
 	 * Runs a game until a terminal state is hit.
 	 */
-	public void runGame(){
+	public void runGame(boolean visualize){
 		
 		for(Agent a : agents){
 			a.gameStarting();
 		}
 		
+		
 		currentState = initialStateGenerator.generateState(agents);
+		if(visualize) {
+			exp = new SGVisualExplorer(domain, vis, currentState, worldModel);
+			exp.initGUI();
+		}
 		
 		while(!tf.isTerminal(currentState)){
 			this.runStage();
+			if(visualize)
+			{
+				vis.updateState(currentState);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		for(Agent a : agents){
@@ -194,10 +215,13 @@ public class World {
 		}
 		
 		currentState = initialStateGenerator.generateState(agents);
+		exp = new SGVisualExplorer(domain, vis, currentState, worldModel);
+		exp.initGUI();
 		int t = 0;
 		
 		while(!tf.isTerminal(currentState) && t < maxStages){
 			this.runStage();
+			vis.updateState(currentState);
 			t++;
 		}
 		
