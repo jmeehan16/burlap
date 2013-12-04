@@ -1,9 +1,14 @@
 package burlap.domain.stochasticgames.gridgame.cocoqpaper;
 
+import java.util.List;
+
 import burlap.domain.stochasticgames.gridgame.GGVisualizer;
 import burlap.domain.stochasticgames.gridgame.GridGame;
 import burlap.domain.stochasticgames.gridgame.GridGameStandardMechanics;
+import burlap.oomdp.core.Domain;
+import burlap.oomdp.core.ObjectInstance;
 import burlap.oomdp.core.State;
+import burlap.oomdp.stochasticgames.Agent;
 import burlap.oomdp.stochasticgames.JointActionModel;
 import burlap.oomdp.stochasticgames.SGDomain;
 import burlap.oomdp.stochasticgames.explorers.SGVisualExplorer;
@@ -22,16 +27,54 @@ import burlap.oomdp.visualizer.Visualizer;
  * @author James MacGlashan
  *
  */
-public class HorizontalToyGridGame extends  GridGame {
+public class HorizontalToyGridGame extends  GridGameRevisited {
 
+	public HorizontalToyGridGame(){
+		this.width = 7;
+		this.height = 1;
+		this.numGoals = 2;
+		this.numAgents = 2;
+	}
 	
-	public static void main(String [] args){
+	public State generateState(List<Agent> agents,Domain domain) {
+		
+		//create a state that is the same as the one in the GridGame main method
+		
+		//this method will create object instances for the number of agents, but they will have arbirary names
+		//and are not necessarily the same as the names of the agents in the world.
+		State s = GridGame.getCleanState(domain, this.numAgents, this.numGoals, 3, 2, this.width, this.height);
+		
+		setAgent(s, 0, 2, 0, 1);
+		setAgent(s, 1, 5, 0, 4);
+		
+		setGoal(s, 0, 0, 0, 5);
+		setGoal(s, 1, 3, 0, 0); // neutral
+		
+		int numOfHorizontalCells = 0; //cells
+		setHorizontalWall(s, 2, 4, 1, numOfHorizontalCells, 1);
+		
+		
+		//rename the agent class object instances to match the name of the corresponding agents in the world 
+		List<ObjectInstance> agentObs = s.getObjectsOfTrueClass(GridGame.CLASSAGENT);
+		s.renameObject(agentObs.get(0), agents.get(0).getAgentName());
+		
+		if(agents.size() == 2){
+			s.renameObject(agentObs.get(1), agents.get(1).getAgentName());
+		}
+		
+		
+		
+		return s;
+		
+	}
+	
+	
+	/*public static void main(String [] args){
 		
 		GridGame gg = new HorizontalToyGridGame();
 		
-		int gameWidth = 7;
-		int gameHeight = 1;
-		int numGoals = 2;
+		
+		
 		SGDomain d = (SGDomain)gg.generateDomain();
 		
 		State s = getCleanState(d, 2, numGoals, 3, 2, gameWidth, gameHeight);
@@ -75,7 +118,7 @@ public class HorizontalToyGridGame extends  GridGame {
 
 		
 		
-	}
+	}*/
 
 	
 	

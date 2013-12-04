@@ -170,7 +170,7 @@ public class GridGame implements DomainGenerator {
 	 * 
 	 * @param args
 	 */
-	public static void main(String [] args){
+	/*public static void main(String [] args){
 		
 		GridGame gg = new GridGame();
 		
@@ -215,7 +215,7 @@ public class GridGame implements DomainGenerator {
 
 		
 		
-	}
+	}*/
 	
 	
 	/**
@@ -373,7 +373,7 @@ public class GridGame implements DomainGenerator {
 	 */
 	public static State getCleanState(Domain d, int na, int ng, int nhw, int nvw, int width, int height){
 		
-		State s = new State();
+		State s = new State();	
 		addNObjects(d, s, CLASSGOAL, ng);
 		addNObjects(d, s, CLASSAGENT, na);
 		addNObjects(d, s, CLASSDIMHWALL, nhw);

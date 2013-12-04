@@ -1,9 +1,14 @@
 package burlap.domain.stochasticgames.gridgame.cocoqpaper;
 
+import java.util.List;
+
 import burlap.domain.stochasticgames.gridgame.GGVisualizer;
 import burlap.domain.stochasticgames.gridgame.GridGame;
 import burlap.domain.stochasticgames.gridgame.GridGameStandardMechanics;
+import burlap.oomdp.core.Domain;
+import burlap.oomdp.core.ObjectInstance;
 import burlap.oomdp.core.State;
+import burlap.oomdp.stochasticgames.Agent;
 import burlap.oomdp.stochasticgames.JointActionModel;
 import burlap.oomdp.stochasticgames.SGDomain;
 import burlap.oomdp.stochasticgames.explorers.SGVisualExplorer;
@@ -23,9 +28,52 @@ import burlap.oomdp.visualizer.Visualizer;
  *
  */
 
-public class FriendOrFoeGridGame extends  GridGame {
+public class FriendOrFoeGridGame extends  GridGameRevisited {
 
+	public FriendOrFoeGridGame(){
+		this.width = 8;
+		this.height = 1;
+		this.numGoals = 2;
+		this.numAgents = 2;
+	}
 	
+	
+	public State generateState(List<Agent> agents,Domain domain) {
+		
+		//create a state that is the same as the one in the GridGame main method
+		
+		//this method will create object instances for the number of agents, but they will have arbirary names
+		//and are not necessarily the same as the names of the agents in the world.
+		State s = GridGame.getCleanState(domain, this.numAgents, this.numGoals, 3, 2, this.width, this.height);
+		
+		
+		GridGame.setAgent(s, 0, 3, 0, 4);
+		GridGame.setAgent(s, 1, 6, 0, 1);
+		
+		GridGame.setGoal(s, 0, 0, 0, 5);
+		GridGame.setGoal(s, 1, 4, 0, 0); // neutral
+		
+		int numOfHorizontalCells = 0; //cells
+		setHorizontalWall(s, 2, 4, 1, numOfHorizontalCells, 1);
+		
+		
+		
+		//rename the agent class object instances to match the name of the corresponding agents in the world 
+		List<ObjectInstance> agentObs = s.getObjectsOfTrueClass(GridGame.CLASSAGENT);
+		s.renameObject(agentObs.get(0), agents.get(0).getAgentName());
+		
+		if(agents.size() == 2){
+			s.renameObject(agentObs.get(1), agents.get(1).getAgentName());
+		}
+		
+		
+		
+		return s;
+		
+	}
+	
+	
+	/*
 	public static void main(String [] args){
 		
 		GridGame gg = new FriendOrFoeGridGame();
@@ -76,7 +124,7 @@ public class FriendOrFoeGridGame extends  GridGame {
 
 		
 		
-	}
+	}*/
 
 
 	

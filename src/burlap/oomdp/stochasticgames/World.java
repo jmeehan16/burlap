@@ -169,7 +169,7 @@ public class World {
 	/**
 	 * Runs a game until a terminal state is hit.
 	 */
-	public void runGame(boolean visualize){
+	public void runGame(){
 		
 		for(Agent a : agents){
 			a.gameStarting();
@@ -177,23 +177,10 @@ public class World {
 		
 		
 		currentState = initialStateGenerator.generateState(agents);
-		if(visualize) {
-			exp = new SGVisualExplorer(domain, vis, currentState, worldModel);
-			exp.initGUI();
-		}
+		
 		
 		while(!tf.isTerminal(currentState)){
 			this.runStage();
-			if(visualize)
-			{
-				vis.updateState(currentState);
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 		}
 		
 		for(Agent a : agents){

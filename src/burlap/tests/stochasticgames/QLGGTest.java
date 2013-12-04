@@ -9,12 +9,21 @@ import burlap.debugtools.DPrint;
 import burlap.domain.stochasticgames.gridgame.GGVisualizer;
 import burlap.domain.stochasticgames.gridgame.GridGame;
 import burlap.domain.stochasticgames.gridgame.GridGameStandardMechanics;
+import burlap.domain.stochasticgames.gridgame.cocoqpaper.CoordinatedGridGame;
+import burlap.domain.stochasticgames.gridgame.cocoqpaper.FriendOrFoeGridGame;
+import burlap.domain.stochasticgames.gridgame.cocoqpaper.GridGameExample;
+import burlap.domain.stochasticgames.gridgame.cocoqpaper.GridGameRevisited;
+import burlap.domain.stochasticgames.gridgame.cocoqpaper.HorizontalToyGridGame;
+import burlap.domain.stochasticgames.gridgame.cocoqpaper.Incredible;
+import burlap.domain.stochasticgames.gridgame.cocoqpaper.PrisonerGridGame;
+import burlap.domain.stochasticgames.gridgame.cocoqpaper.Turkey;
 import burlap.oomdp.core.State;
 import burlap.oomdp.stochasticgames.Agent;
 import burlap.oomdp.stochasticgames.AgentFactory;
 import burlap.oomdp.stochasticgames.AgentType;
 import burlap.oomdp.stochasticgames.JointActionModel;
 import burlap.oomdp.stochasticgames.SGDomain;
+import burlap.oomdp.stochasticgames.VisualizedWorld;
 import burlap.oomdp.stochasticgames.World;
 import burlap.oomdp.stochasticgames.explorers.SGVisualExplorer;
 import burlap.oomdp.visualizer.Visualizer;
@@ -31,8 +40,13 @@ public class QLGGTest {
 	public QLGGTest(){
 		
 		//create domain
-		GridGame domainGen = new GridGame();
-		SGDomain domain = (SGDomain)domainGen.generateDomain();
+		
+		
+		//GridGameRevisited game = new GridGameExample();
+		GridGameRevisited game = new Turkey();
+		
+		
+		SGDomain domain = (SGDomain)game.generateDomain();
 		
 		//create hashing factory that only hashes on the agent positions (ignores wall attributes)
 		DiscreteStateHashFactory hashingFactory = new DiscreteStateHashFactory();
@@ -51,8 +65,8 @@ public class QLGGTest {
 		JointActionModel jam = new GridGameStandardMechanics(domain);
 		
 		//create our world
-		World w = new World(domain, jam, new GGJointRewardFunction(domain), new GGTerminalFunction(domain), 
-				new SimpleGGStateGen(domain));
+		VisualizedWorld w = new VisualizedWorld(domain, jam, new GGJointRewardFunction(domain), new GGTerminalFunction(domain), 
+				new SimpleGGStateGen(domain),game);
 		
 		
 		//make a single agent type that can use all actions and refers to the agent class of grid game that we will use for both our agents
@@ -86,7 +100,7 @@ public class QLGGTest {
 			if(i % 10 == 0){
 				System.out.println("Game: " + i);
 			}
-			w.runGame(false);
+			w.runGame();
 		}
 		
 		System.out.println("Finished training");
@@ -96,7 +110,7 @@ public class QLGGTest {
 		DPrint.toggleCode(w.getDebugId(), true);
 		
 		//run game to observe behavior
-		w.runGame(true);
+		w.runAndVisualizeGame();
 		
 	}
 	
