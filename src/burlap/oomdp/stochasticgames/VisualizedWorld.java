@@ -20,9 +20,9 @@ public class VisualizedWorld extends World {
 	
 	
 	public VisualizedWorld(SGDomain domain, JointActionModel jam,
-			JointReward jr, TerminalFunction tf, SGStateGenerator sg,GridGameRevisited game) {
+			JointReward jr, TerminalFunction tf, SGStateGenerator sg) {
 		super(domain, jam, jr, tf, sg);
-		this.game = game;
+		this.game = (GridGameRevisited)sg;
 		this.vis = GGVisualizer.getVisualizer(game.getWidth(),game.getHeight());
 		// TODO Auto-generated constructor stub
 	}
@@ -39,7 +39,7 @@ public class VisualizedWorld extends World {
 		}
 		
 		
-		//currentState = game.generateState(agents, domain);
+		//currentState = game.generateState(agents);
 		currentState = initialStateGenerator.generateState(agents);
 		
 		
@@ -70,26 +70,5 @@ public class VisualizedWorld extends World {
 		
 	}
 	
-public void runGame(){
-		
-		for(Agent a : agents){
-			a.gameStarting();
-		}
-		
-		
-		currentState = initialStateGenerator.generateState(agents);
-		
-		
-		while(!tf.isTerminal(currentState)){
-			this.runStage();
-		}
-		
-		for(Agent a : agents){
-			a.gameTerminated();
-		}
-		
-		DPrint.cl(debugId, currentState.getCompleteStateDescription());
-		
-	}
-	
+
 }

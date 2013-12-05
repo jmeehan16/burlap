@@ -16,15 +16,16 @@ public class GridGameExample extends GridGameRevisited {
 		this.numAgents = 2;
 	}
 	
-	public State generateState(List<Agent> agents,Domain domain) {
-		State s = getCleanState(domain, this.numAgents , this.numGoals, 3, 2, this.width, this.height);
+	@Override
+	public State generateState(List<Agent> agents) {
+		State s = getCleanState(this.domain, this.numAgents , this.numGoals, 3, 2, this.width, this.height);
 
 		setAgent(s, 0, 0, 0, 0);
 		setAgent(s, 1, 4, 0, 1);
 
-		setGoal(s, 0, 0, 3, 1);
+		setGoal(s, 0, 0, 4, 1);
 		setGoal(s, 1, 2, 4, 0);
-		setGoal(s, 2, 4, 3, 2);
+		setGoal(s, 2, 4, 4, 2);
 
 		setHorizontalWall(s, 2, 4, 1, 3, 1);
 		//setHorizontalWall(s, 2, 4, 1, 4, 0);
