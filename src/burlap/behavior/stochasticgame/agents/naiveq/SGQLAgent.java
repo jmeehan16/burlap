@@ -71,6 +71,8 @@ public class SGQLAgent extends Agent {
 	 */
 	protected StateHashFactory											hashFactory;
 	
+	final protected static double 										EPSILON = 0.1;
+	
 	
 	/**
 	 * Initializes with a default Q-value of 0 and a 0.1 epsilon greedy policy/strategy
@@ -88,7 +90,7 @@ public class SGQLAgent extends Agent {
 		
 		this.qMap = new HashMap<StateHashTuple, List<SGQValue>>();
 		stateRepresentations = new HashMap<StateHashTuple, State>();
-		this.strategy = new SGEQGreedy(this, 0.1);
+		this.strategy = new SGEQGreedy(this, EPSILON);
 		
 		this.storedMapAbstraction = new NullAbstractionNoCopy();
 	}
@@ -111,7 +113,7 @@ public class SGQLAgent extends Agent {
 		
 		this.qMap = new HashMap<StateHashTuple, List<SGQValue>>();
 		stateRepresentations = new HashMap<StateHashTuple, State>();
-		this.strategy = new SGEQGreedy(this, 0.1);
+		this.strategy = new SGEQGreedy(this, EPSILON);
 		
 		this.storedMapAbstraction = new NullAbstractionNoCopy();
 	}

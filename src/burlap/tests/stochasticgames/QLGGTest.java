@@ -1,10 +1,16 @@
 package burlap.tests.stochasticgames;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import burlap.behavior.statehashing.DiscreteStateHashFactory;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQFactory;
+import burlap.behavior.stochasticgame.agents.naiveq.SGQLAgent;
+import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareAgent;
+import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareFactory;
+import burlap.behavior.stochasticgame.agents.naiveq.SGQValue;
+import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxMax;
 import burlap.debugtools.DPrint;
 import burlap.domain.stochasticgames.gridgame.GGVisualizer;
 import burlap.domain.stochasticgames.gridgame.GridGame;
@@ -43,7 +49,7 @@ public class QLGGTest {
 		
 		
 		//GridGameRevisited game = new GridGameExample();
-		GridGameRevisited game = new Turkey();
+		GridGameRevisited game = new CoordinatedGridGame();
 		
 		
 		SGDomain domain = (SGDomain)game.generateDomain();
@@ -61,12 +67,15 @@ public class QLGGTest {
 		
 		//create a factory for Q-learning, since we're going to make both of our agents a Q-learning agent with the same algorithm parameters
 		//(alternatively, we could have just used the Q-learning constructor twice for each agent)
+		//AgentFactory af = new SGQLOppAwareFactory(domain, discount, learningRate, defaultQ, hashingFactory);
 		AgentFactory af = new SGQFactory(domain, discount, learningRate, defaultQ, hashingFactory);
 		JointActionModel jam = new GridGameStandardMechanics(domain);
 		
+		SimpleGGStateGen stateGen = new SimpleGGStateGen(domain);
+		
 		//create our world
 		VisualizedWorld w = new VisualizedWorld(domain, jam, new GGJointRewardFunction(domain), new GGTerminalFunction(domain), 
-				new SimpleGGStateGen(domain),game);
+				stateGen,game);
 		
 		
 		//make a single agent type that can use all actions and refers to the agent class of grid game that we will use for both our agents
@@ -77,6 +86,11 @@ public class QLGGTest {
 		Agent a0 = af.generateAgent();
 		Agent a1 = af.generateAgent();
 		
+		//((SGQLOppAwareAgent)a0).setOpponent((SGQLOppAwareAgent)a1);
+		//((SGQLOppAwareAgent)a1).setOpponent((SGQLOppAwareAgent)a0);
+		
+		//((SGQLOppAwareAgent)a0).setOperator(new MaxMax());
+		//((SGQLOppAwareAgent)a1).setOperator(new MaxMax());
 		
 		//have the agents join the world
 		a0.joinWorld(w, at);
@@ -95,7 +109,7 @@ public class QLGGTest {
 		//State s = GridGame.getCleanState(domain, 2, 3, 3, 2, 5, 5);
 		
 		System.out.println("Starting training");
-		int ngames = 1000;
+		int ngames = 10000;
 		for(int i = 0; i < ngames; i++){
 			if(i % 10 == 0){
 				System.out.println("Game: " + i);
@@ -104,7 +118,23 @@ public class QLGGTest {
 		}
 		
 		System.out.println("Finished training");
+		/**
+		List<SGQValue> a0AllQs = ((SGQLAgent)a0).getAllQsFor(stateGen.generateState(agents));
+		List<SGQValue> a1AllQs = ((SGQLAgent)a1).getAllQsFor(stateGen.generateState(agents));
 		
+		Iterator<SGQValue> iter1 = a0AllQs.iterator();
+		Iterator<SGQValue> iter2 = a1AllQs.iterator();
+		System.out.println("Agent 1");
+		while(iter1.hasNext()){
+			SGQValue v1 = iter1.next();
+			System.out.println(v1.q);
+		}
+		System.out.println("Agent 2");
+		while(iter2.hasNext()){
+			SGQValue v2 = iter2.next();
+			System.out.println(v2.q);
+		}
+		*/
 		
 		//turn debug back on if we want to observe the behavior of agents after they have already learned how to behave
 		DPrint.toggleCode(w.getDebugId(), true);

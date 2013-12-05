@@ -181,6 +181,16 @@ public class TwoPersonZeroSumGameNash {
 		 
 		
 	}
+	
+	public static double[] getNash(double[][] A) throws Exception{
+		
+		 double[] rowresult = RowSolver(A);
+		 double[] columnresult = RowSolver(transpose(A));
+		 double[] result = new double[2];
+		 result[0] = rowresult[rowresult.length];
+		 result[1] = columnresult[columnresult.length];
+		 return result;
+	}
 	 
 	 
 	
