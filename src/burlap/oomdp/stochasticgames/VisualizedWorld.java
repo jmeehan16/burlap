@@ -39,7 +39,8 @@ public class VisualizedWorld extends World {
 		}
 		
 		
-		currentState = game.generateState(agents, domain);
+		//currentState = game.generateState(agents, domain);
+		currentState = initialStateGenerator.generateState(agents);
 		
 		
 		int visWidth = 1200*game.getWidth()/(game.getWidth()+game.getHeight());
@@ -69,6 +70,26 @@ public class VisualizedWorld extends World {
 		
 	}
 	
-	
+public void runGame(){
+		
+		for(Agent a : agents){
+			a.gameStarting();
+		}
+		
+		
+		currentState = initialStateGenerator.generateState(agents);
+		
+		
+		while(!tf.isTerminal(currentState)){
+			this.runStage();
+		}
+		
+		for(Agent a : agents){
+			a.gameTerminated();
+		}
+		
+		DPrint.cl(debugId, currentState.getCompleteStateDescription());
+		
+	}
 	
 }

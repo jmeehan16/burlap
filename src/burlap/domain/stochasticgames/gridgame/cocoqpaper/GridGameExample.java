@@ -22,9 +22,9 @@ public class GridGameExample extends GridGameRevisited {
 		setAgent(s, 0, 0, 0, 0);
 		setAgent(s, 1, 4, 0, 1);
 
-		setGoal(s, 0, 0, 4, 1);
+		setGoal(s, 0, 0, 3, 1);
 		setGoal(s, 1, 2, 4, 0);
-		setGoal(s, 2, 4, 4, 2);
+		setGoal(s, 2, 4, 3, 2);
 
 		setHorizontalWall(s, 2, 4, 1, 3, 1);
 		//setHorizontalWall(s, 2, 4, 1, 4, 0);

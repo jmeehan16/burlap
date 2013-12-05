@@ -24,8 +24,8 @@ public class GGJointRewardFunction implements JointReward {
 	PropositionalFunction agentInPersonalGoal;
 	PropositionalFunction agentInUniversalGoal;
 	
-	double defaultReward = -1.;
-	double goalReward = 100.;
+	double defaultReward = 0.;
+	double goalReward = 1.;
 	
 	public GGJointRewardFunction(Domain ggDomain){
 		agentInPersonalGoal = ggDomain.getPropFunction(GridGame.PFINPGOAL);

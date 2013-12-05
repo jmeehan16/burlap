@@ -48,8 +48,8 @@ public class QLGGTest {
 		//create domain
 		
 		
-		//GridGameRevisited game = new GridGameExample();
-		GridGameRevisited game = new CoordinatedGridGame();
+		GridGameRevisited game = new GridGameExample();
+		//GridGameRevisited game = new CoordinatedGridGame();
 		
 		
 		SGDomain domain = (SGDomain)game.generateDomain();
@@ -67,15 +67,17 @@ public class QLGGTest {
 		
 		//create a factory for Q-learning, since we're going to make both of our agents a Q-learning agent with the same algorithm parameters
 		//(alternatively, we could have just used the Q-learning constructor twice for each agent)
-		//AgentFactory af = new SGQLOppAwareFactory(domain, discount, learningRate, defaultQ, hashingFactory);
-		AgentFactory af = new SGQFactory(domain, discount, learningRate, defaultQ, hashingFactory);
+		AgentFactory af = new SGQLOppAwareFactory(domain, discount, learningRate, defaultQ, hashingFactory);
+		//AgentFactory af = new SGQFactory(domain, discount, learningRate, defaultQ, hashingFactory);
 		JointActionModel jam = new GridGameStandardMechanics(domain);
 		
 		SimpleGGStateGen stateGen = new SimpleGGStateGen(domain);
 		
 		//create our world
 		VisualizedWorld w = new VisualizedWorld(domain, jam, new GGJointRewardFunction(domain), new GGTerminalFunction(domain), 
-				stateGen,game);
+			stateGen,game);
+		//World w = new World(domain, jam, new GGJointRewardFunction(domain), new GGTerminalFunction(domain), 
+		//		stateGen);
 		
 		
 		//make a single agent type that can use all actions and refers to the agent class of grid game that we will use for both our agents
@@ -86,11 +88,11 @@ public class QLGGTest {
 		Agent a0 = af.generateAgent();
 		Agent a1 = af.generateAgent();
 		
-		//((SGQLOppAwareAgent)a0).setOpponent((SGQLOppAwareAgent)a1);
-		//((SGQLOppAwareAgent)a1).setOpponent((SGQLOppAwareAgent)a0);
+		((SGQLOppAwareAgent)a0).setOpponent((SGQLOppAwareAgent)a1);
+		((SGQLOppAwareAgent)a1).setOpponent((SGQLOppAwareAgent)a0);
 		
-		//((SGQLOppAwareAgent)a0).setOperator(new MaxMax());
-		//((SGQLOppAwareAgent)a1).setOperator(new MaxMax());
+		((SGQLOppAwareAgent)a0).setOperator(new MaxMax());
+		((SGQLOppAwareAgent)a1).setOperator(new MaxMax());
 		
 		//have the agents join the world
 		a0.joinWorld(w, at);
@@ -109,7 +111,7 @@ public class QLGGTest {
 		//State s = GridGame.getCleanState(domain, 2, 3, 3, 2, 5, 5);
 		
 		System.out.println("Starting training");
-		int ngames = 10000;
+		int ngames = 100000;
 		for(int i = 0; i < ngames; i++){
 			if(i % 10 == 0){
 				System.out.println("Game: " + i);
@@ -141,6 +143,7 @@ public class QLGGTest {
 		
 		//run game to observe behavior
 		w.runAndVisualizeGame();
+		//w.runGame();
 		
 	}
 	

@@ -37,8 +37,9 @@ public class MaxMax extends BackupOp {
 			}
 			itr2 = otherAgentQVal.iterator();
 		}
+		//return the agent's own payoff
 		
-		return maxVal/2;
+		return thisQ;
 	}
 	
 }
