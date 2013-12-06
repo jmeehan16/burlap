@@ -13,6 +13,12 @@ import burlap.oomdp.stochasticgames.GroundedSingleAction;
  *
  */
 public abstract class Strategy {
+	
+	protected boolean stopExploring;
+	
+	public void stopExploring(boolean se){
+		stopExploring = se;
+	}
 
 	/**
 	 * Returns the action selection of this agent for the given state.

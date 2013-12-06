@@ -45,6 +45,7 @@ public class SGEQGreedy extends Strategy {
 		this.agent = a;
 		this.rand = RandomFactory.getMapped(0);
 		this.e = e;
+		this.stopExploring = false;
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class SGEQGreedy extends Strategy {
 		List<GroundedSingleAction> gas = SingleAction.getAllPossibleGroundedSingleActions(s, aname, at.actions);
 		
 		double roll = rand.nextDouble();
-		if(roll > e){
+		if(roll > e || stopExploring){
 			//choose randomly among max satisfying actions
 			
 			List <Integer> maxCands = this.getMaxActions(s, gas);

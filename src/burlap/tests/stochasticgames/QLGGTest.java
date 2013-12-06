@@ -50,7 +50,10 @@ public class QLGGTest {
 		
 		
 		//GridGameRevisited game = new GridGameExample();
-		GridGameRevisited game = new CoordinatedGridGame();
+		//GridGameRevisited game = new CoordinatedGridGame();
+		//GridGameRevisited game = new Turkey();
+		//GridGameRevisited game = new Incredible();
+		GridGameRevisited game = new FriendOrFoeGridGame();
 		
 		
 		SGDomain domain = (SGDomain)game.generateDomain();
@@ -111,7 +114,7 @@ public class QLGGTest {
 		//State s = GridGame.getCleanState(domain, 2, 3, 3, 2, 5, 5);
 		
 		System.out.println("Starting training");
-		int ngames = 50000;
+		int ngames = 10000;
 		for(int i = 0; i < ngames; i++){
 			if(i % 10 == 0){
 				System.out.println("Game: " + i);

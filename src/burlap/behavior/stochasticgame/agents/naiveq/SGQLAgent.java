@@ -318,6 +318,10 @@ public class SGQLAgent extends Agent {
 		return hashFactory.hashState(abstracted);
 	}
 	
+	public void stopExploring(boolean se) {
+		strategy.stopExploring(se);
+	}
+	
 	
 	/**
 	 * Takes an input action and mapping objects in the source state for the action to objects in another state
