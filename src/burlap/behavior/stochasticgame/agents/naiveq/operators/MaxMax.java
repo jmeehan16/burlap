@@ -39,7 +39,7 @@ public class MaxMax extends BackupOp {
 		}
 		//return the agent's own payoff
 		
-		return thisQ;
+		return maxVal/2;
 	}
 	
 }
