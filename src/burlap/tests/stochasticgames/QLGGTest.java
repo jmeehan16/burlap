@@ -141,6 +141,9 @@ public class QLGGTest {
 		//turn debug back on if we want to observe the behavior of agents after they have already learned how to behave
 		DPrint.toggleCode(w.getDebugId(), true);
 		
+		((SGQLAgent)a0).stopExploring(true);
+		((SGQLAgent)a1).stopExploring(true);
+		
 		//run game to observe behavior
 		w.runAndVisualizeGame();
 		//w.runGame();
