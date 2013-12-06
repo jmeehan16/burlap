@@ -128,7 +128,7 @@ public class BimatrixGeneralSumSolver {
 			System.out.println(Arrays.toString(payoffs2[a1]));
 		}
 		
-		GeneralSumNash(payoffs1,payoffs2);
+		generalSumNash(payoffs1,payoffs2);
 		
 		//Test 5 : Rock-Paper-Scissor, Zero Sum with no pure NE
 		
@@ -189,7 +189,7 @@ public class BimatrixGeneralSumSolver {
 	
 	
 	
-public static void GeneralSumNash(double[][] payoffs1, double[][] payoffs2){
+public static double generalSumNash(double[][] payoffs1, double[][] payoffs2){
 		
         Joint<double[]> strategies = solveForMixedStrategies(payoffs1, payoffs2);
 		
@@ -199,10 +199,12 @@ public static void GeneralSumNash(double[][] payoffs1, double[][] payoffs2){
 		double[][] outcomeProbability = getDistributionOverJointActions(Player1Strategy, Player2Strategy);
 		
 		double ExpectedpayoffforPlayer1 = getExpectedPayoffsForPlayer(payoffs1, outcomeProbability);
-		double ExpectedpayoffforPlayer2 = getExpectedPayoffsForPlayer(payoffs2, outcomeProbability);
+		//double ExpectedpayoffforPlayer2 = getExpectedPayoffsForPlayer(payoffs2, outcomeProbability);
 		
-		System.out.println("player1Strategy: " + Arrays.toString(strategies.getForPlayer(0)) + "player1payoff" + ExpectedpayoffforPlayer1 );
-		System.out.println("player2Strategy: " + Arrays.toString(strategies.getForPlayer(1)) +"player2payoff" + ExpectedpayoffforPlayer2);
+		return ExpectedpayoffforPlayer1;
+		
+		//System.out.println("player1Strategy: " + Arrays.toString(strategies.getForPlayer(0)) + "player1payoff" + ExpectedpayoffforPlayer1 );
+		//System.out.println("player2Strategy: " + Arrays.toString(strategies.getForPlayer(1)) +"player2payoff" + ExpectedpayoffforPlayer2);
 		
 		
 	}

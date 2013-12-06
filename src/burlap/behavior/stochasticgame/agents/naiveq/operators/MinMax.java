@@ -3,17 +3,22 @@ package burlap.behavior.stochasticgame.agents.naiveq.operators;
 import java.util.Iterator;
 import java.util.List;
 
+import burlap.behavior.stochasticgame.agents.naiveq.SGQLAgent;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQValue;
-import burlap.nash.TwoPersonZeroSumGameNash;
+import burlap.oomdp.core.State;
+import burlap.solvers.BimatrixGeneralSumSolver;
 
 
 public class MinMax extends BackupOp {
 	
-	public Tuple<Double> performOp(List <SGQValue> thisAgentQVal, List <SGQValue> otherAgentQVal)
+	public double performOp(SGQLAgent a1, SGQLAgent a2, State s)
 	{
-		Tuple<Double> bestVals = null;
+		List<SGQValue> thisAgentQVal = a1.getAllQsFor(s);
+		List<SGQValue> otherAgentQVal = a2.getAllQsFor(s);
+		
 		assert(thisAgentQVal.size() == otherAgentQVal.size());
-		double[][] payout = new double[thisAgentQVal.size()][otherAgentQVal.size()];
+		double[][] payout1 = new double[thisAgentQVal.size()][otherAgentQVal.size()];
+		double[][] payout2 = new double[thisAgentQVal.size()][otherAgentQVal.size()];
 		int i = 0;
 		int j = 0;
 		
@@ -26,7 +31,8 @@ public class MinMax extends BackupOp {
 			while(itr2.hasNext())
 			{
 				SGQValue val2 = itr2.next();
-				payout[i][j] = (double)(val1.q - val2.q)/2.0;
+				payout1[i][j] = (double)(val1.q - val2.q)/2.0;
+				payout2[i][j] = (double)(val2.q - val1.q)/2.0;
 				j++;
 			}
 			i++;
@@ -34,16 +40,8 @@ public class MinMax extends BackupOp {
 			itr2 = otherAgentQVal.iterator();
 		}
 		
-		double[] optVals;
-		try{
-			 optVals = TwoPersonZeroSumGameNash.getNash(payout);
-			 bestVals = new Tuple<Double>(optVals[0], optVals[1]);
-		}
-		catch(Exception e){
-			System.err.println(e.getMessage());
-		}
-		
-		return bestVals;
+
+		return BimatrixGeneralSumSolver.generalSumNash(payout1, payout2);
 	}
 	
 }

@@ -10,8 +10,10 @@ import burlap.behavior.stochasticgame.agents.naiveq.SGQLAgent;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareAgent;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareFactory;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQValue;
+import burlap.behavior.stochasticgame.agents.naiveq.operators.CoCoQ;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxMax;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxOp;
+import burlap.behavior.stochasticgame.agents.naiveq.operators.MinMax;
 import burlap.debugtools.DPrint;
 import burlap.domain.stochasticgames.gridgame.GGVisualizer;
 import burlap.domain.stochasticgames.gridgame.GridGame;
@@ -51,9 +53,10 @@ public class QLGGTest {
 		
 		//GridGameRevisited game = new GridGameExample();
 		//GridGameRevisited game = new CoordinatedGridGame();
-		//GridGameRevisited game = new Turkey();
+		GridGameRevisited game = new Turkey();
 		//GridGameRevisited game = new Incredible();
-		GridGameRevisited game = new FriendOrFoeGridGame();
+		//GridGameRevisited game = new FriendOrFoeGridGame();
+		//GridGameRevisited game = new PrisonerGridGame();
 		
 		
 		SGDomain domain = (SGDomain)game.generateDomain();
@@ -114,7 +117,7 @@ public class QLGGTest {
 		//State s = GridGame.getCleanState(domain, 2, 3, 3, 2, 5, 5);
 		
 		System.out.println("Starting training");
-		int ngames = 100000;
+		int ngames = 10000;
 		for(int i = 0; i < ngames; i++){
 			if(i % 10 == 0){
 				System.out.println("Game: " + i);

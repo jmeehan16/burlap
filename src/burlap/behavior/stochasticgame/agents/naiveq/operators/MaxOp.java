@@ -27,7 +27,7 @@ public class MaxOp extends BackupOp {
 				maxQ = qe.q;
 			}
 		}
-		
+		System.out.println(a1.getAgentName() + ": " + maxQ);
 		return maxQ;
 		
 	}

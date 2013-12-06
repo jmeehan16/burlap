@@ -4,6 +4,7 @@ import java.util.Map;
 
 import burlap.behavior.statehashing.StateHashFactory;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.BackupOp;
+import burlap.behavior.stochasticgame.agents.naiveq.operators.CoCoQ;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxOp;
 import burlap.oomdp.core.State;
 import burlap.oomdp.stochasticgames.Agent;
@@ -60,7 +61,9 @@ public class SGQLOppAwareAgent extends SGQLAgent {
 			maxQ = operator.performOp(this, opponent, sprime);
 		}
 		
-
+		if(operator instanceof CoCoQ)
+			r -= maxQ;
+			
 		qe.q = qe.q + this.learningRate * (r + (this.discount * maxQ) - qe.q);
 
 	}

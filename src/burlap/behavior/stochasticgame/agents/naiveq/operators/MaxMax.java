@@ -14,9 +14,7 @@ public class MaxMax extends BackupOp {
 		List<SGQValue> thisAgentQVal = a1.getAllQsFor(s);
 		List<SGQValue> otherAgentQVal = a2.getAllQsFor(s);
 		
-		
 		double maxVal = Double.NEGATIVE_INFINITY;
-		double thisQ = Double.NEGATIVE_INFINITY;
 		assert(thisAgentQVal.size() == otherAgentQVal.size());
 		
 		Iterator<SGQValue> itr1 = thisAgentQVal.iterator();
@@ -32,14 +30,13 @@ public class MaxMax extends BackupOp {
 				if(val1.q + val2.q > maxVal)
 				{
 					maxVal = val1.q + val2.q;
-					thisQ = val1.q;
 				}
 			}
 			itr2 = otherAgentQVal.iterator();
 		}
 		//return the agent's own payoff
-		
-		return maxVal/2;
+		//System.out.println(a1.getAgentName() + ": " + maxVal/2.0);
+		return maxVal/2.0;
 	}
 	
 }
