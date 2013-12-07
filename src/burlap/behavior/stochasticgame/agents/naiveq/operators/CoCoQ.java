@@ -48,7 +48,7 @@ public class CoCoQ extends BackupOp {
 
 		double minmax = BimatrixGeneralSumSolver.generalSumNash(payout1, payout2);
 		
-		System.out.println("Coco: " + maxmax/2.0 + " + " + minmax);
+		//System.out.println("Coco: " + maxmax/2.0 + " + " + minmax);
 		
 		return maxmax/2.0 + minmax;
 	}

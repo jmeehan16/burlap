@@ -16,20 +16,24 @@ import burlap.oomdp.stochasticgames.SGDomain;
 public class SGQLOppAwareAgent extends SGQLAgent {
 	protected SGQLOppAwareAgent opponent;
 	protected BackupOp operator;
+	protected GroundedSingleAction myLastAction;
 	
 	public SGQLOppAwareAgent(SGDomain d, double discount, double learningRate, StateHashFactory hashFactory) {
 		super(d, discount, learningRate, hashFactory);
 		this.setOperator(new MaxOp());
+		this.strategy = new SGEQOppAwareGreedy(this, EPSILON);
 	}
 	
 	public SGQLOppAwareAgent(SGDomain d, double discount, double learningRate, double defaultQ, StateHashFactory hashFactory) {
 		super(d, discount, learningRate, defaultQ, hashFactory);
 		this.setOperator(new MaxOp());
+		this.strategy = new SGEQOppAwareGreedy(this, EPSILON);
 	}
 	
 	public void setOpponent(SGQLOppAwareAgent a)
 	{
 		opponent = a;
+		((SGEQOppAwareGreedy)strategy).setOpponent(a);
 	}
 	
 	public void setOperator(BackupOp o)
@@ -40,6 +44,16 @@ public class SGQLOppAwareAgent extends SGQLAgent {
 	public Agent getOpponent()
 	{
 		return opponent;
+	}
+	
+	public GroundedSingleAction getLastAction()
+	{
+		return myLastAction;
+	}
+	
+	public void setLastAction(GroundedSingleAction gsa)
+	{
+		myLastAction = gsa;
 	}
 	
 	public void observeOutcome(State s, JointAction jointAction, Map<String, Double> jointReward, State sprime, boolean isTerminal) {
@@ -65,12 +79,13 @@ public class SGQLOppAwareAgent extends SGQLAgent {
 		}
 		*/
 		if(!isTerminal){
-			System.out.println("IN TERMINAL");
+			//System.out.println("IN TERMINAL");
 			qValue = operator.performOp(this, opponent, sprime);
 			//qValueOp = operator.performOp(opponent, this, sprime);
 			//assert(qValue == qValueOp);
 			
 		}
+		/**
 		if(operator instanceof CoCoQ)
 		{
 			
@@ -86,10 +101,11 @@ public class SGQLOppAwareAgent extends SGQLAgent {
 			//	System.out.println(this.getAgentName() + ": " + sidePayment);
 			r -= sidePayment;
 		}
-		
+		*/
 		
 			
 		qe.q = qe.q + this.learningRate * (r + (this.discount * qValue) - qe.q);
+		myLastAction = null;
 		//System.out.println(this.getAgentName() + ": " + qe.q);
 	}
 

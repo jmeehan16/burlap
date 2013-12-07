@@ -37,7 +37,7 @@ public class MaxTotalVal extends BackupOp {
 			itr2 = otherAgentQVal.iterator();
 		}
 		//return the agent's own payoff
-		System.out.println("MaxTotalVal: " + payout);
+		//System.out.println("MaxTotalVal: " + payout);
 		return payout;
 	}
 	
