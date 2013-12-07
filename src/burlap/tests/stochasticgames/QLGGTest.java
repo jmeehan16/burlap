@@ -53,9 +53,9 @@ public class QLGGTest {
 		
 		//GridGameRevisited game = new GridGameExample();
 		//GridGameRevisited game = new CoordinatedGridGame();
-		GridGameRevisited game = new Turkey();
+		//GridGameRevisited game = new Turkey();
 		//GridGameRevisited game = new Incredible();
-		//GridGameRevisited game = new FriendOrFoeGridGame();
+		GridGameRevisited game = new FriendOrFoeGridGame();
 		//GridGameRevisited game = new PrisonerGridGame();
 		
 		
@@ -97,8 +97,8 @@ public class QLGGTest {
 		((SGQLOppAwareAgent)a0).setOpponent((SGQLOppAwareAgent)a1);
 		((SGQLOppAwareAgent)a1).setOpponent((SGQLOppAwareAgent)a0);
 		
-		((SGQLOppAwareAgent)a0).setOperator(new MaxOp());
-		((SGQLOppAwareAgent)a1).setOperator(new MaxOp());
+		((SGQLOppAwareAgent)a0).setOperator(new CoCoQ());
+		((SGQLOppAwareAgent)a1).setOperator(new CoCoQ());
 		
 		//have the agents join the world
 		a0.joinWorld(w, at);
@@ -117,7 +117,7 @@ public class QLGGTest {
 		//State s = GridGame.getCleanState(domain, 2, 3, 3, 2, 5, 5);
 		
 		System.out.println("Starting training");
-		int ngames = 10000;
+		int ngames = 100000;
 		for(int i = 0; i < ngames; i++){
 			if(i % 10 == 0){
 				System.out.println("Game: " + i);

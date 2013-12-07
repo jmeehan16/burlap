@@ -6,22 +6,17 @@ import java.util.List;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQLAgent;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQValue;
 import burlap.oomdp.core.State;
-import burlap.solvers.BimatrixGeneralSumSolver;
 
+public class MaxTotalVal extends BackupOp {
 
-public class CoCoQ extends BackupOp {
-	
 	public double performOp(SGQLAgent a1, SGQLAgent a2, State s)
 	{
 		List<SGQValue> thisAgentQVal = a1.getAllQsFor(s);
 		List<SGQValue> otherAgentQVal = a2.getAllQsFor(s);
 		
+		double maxVal = Double.NEGATIVE_INFINITY;
+		double payout = Double.NEGATIVE_INFINITY;
 		assert(thisAgentQVal.size() == otherAgentQVal.size());
-		double[][] payout1 = new double[thisAgentQVal.size()][otherAgentQVal.size()];
-		double[][] payout2 = new double[thisAgentQVal.size()][otherAgentQVal.size()];
-		int i = 0;
-		int j = 0;
-		double maxmax = Double.NEGATIVE_INFINITY;
 		
 		Iterator<SGQValue> itr1 = thisAgentQVal.iterator();
 		Iterator<SGQValue> itr2 = otherAgentQVal.iterator();
@@ -32,25 +27,18 @@ public class CoCoQ extends BackupOp {
 			while(itr2.hasNext())
 			{
 				SGQValue val2 = itr2.next();
-				if(val1.q + val2.q > maxmax)
+				
+				if(val1.q + val2.q > maxVal)
 				{
-					maxmax = val1.q + val2.q;
+					maxVal = val1.q + val2.q;
+					payout = val1.q;
 				}
-				payout1[i][j] = (double)(val1.q - val2.q)/2.0;
-				payout2[i][j] = (double)(val2.q - val1.q)/2.0;
-				j++;
 			}
-			i++;
-			j = 0;
 			itr2 = otherAgentQVal.iterator();
 		}
-		
-
-		double minmax = BimatrixGeneralSumSolver.generalSumNash(payout1, payout2);
-		
-		System.out.println("Coco: " + maxmax/2.0 + " + " + minmax);
-		
-		return maxmax/2.0 + minmax;
+		//return the agent's own payoff
+		System.out.println("MaxTotalVal: " + payout);
+		return payout;
 	}
 	
 }

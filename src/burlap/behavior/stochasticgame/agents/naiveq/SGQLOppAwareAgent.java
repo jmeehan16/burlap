@@ -6,6 +6,7 @@ import burlap.behavior.statehashing.StateHashFactory;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.BackupOp;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.CoCoQ;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxOp;
+import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxTotalVal;
 import burlap.oomdp.core.State;
 import burlap.oomdp.stochasticgames.Agent;
 import burlap.oomdp.stochasticgames.GroundedSingleAction;
@@ -47,25 +48,49 @@ public class SGQLOppAwareAgent extends SGQLAgent {
 			jointReward = internalRewardFunction.reward(s, jointAction, sprime);
 		}
 		
+		
 		GroundedSingleAction myAction = jointAction.action(worldAgentName);
 
 		double r = jointReward.get(worldAgentName);
+		//double opR = jointReward.get(opponent.getAgentName());
+		
+		//double maxmax = operator.performOp(this, opponent, sprime);
+		
 		SGQValue qe = this.getSGQValue(s, myAction);
-		double maxQ = 0.;
+		double qValue = 0.;
+		//double qValueOp = 0.;
 		/**
 		if(!isTerminal){
 			maxQ = this.getMaxQValue(sprime);
 		}
 		*/
 		if(!isTerminal){
-			maxQ = operator.performOp(this, opponent, sprime);
+			System.out.println("IN TERMINAL");
+			qValue = operator.performOp(this, opponent, sprime);
+			//qValueOp = operator.performOp(opponent, this, sprime);
+			//assert(qValue == qValueOp);
+			
+		}
+		if(operator instanceof CoCoQ)
+		{
+			
+			BackupOp maxUtil = new MaxTotalVal();
+			double a = operator.performOp(this,opponent,s);
+			double b = maxUtil.performOp(this, opponent, s);
+			double sidePayment = a - b;
+			//System.out.println(this.getAgentName() + ": " + a + " - " + b);
+			//if(this.getAgentName().equals("default0"))
+			//	System.out.println()
+			//System.out.println(this.getAgentName() + " Q: " + qValue + "  side: " + sidePayment);
+			//if(sidePayment >= 0.00000000001 || sidePayment <= -0.000000000001)
+			//	System.out.println(this.getAgentName() + ": " + sidePayment);
+			r -= sidePayment;
 		}
 		
-		if(operator instanceof CoCoQ)
-			r -= maxQ;
+		
 			
-		qe.q = qe.q + this.learningRate * (r + (this.discount * maxQ) - qe.q);
-
+		qe.q = qe.q + this.learningRate * (r + (this.discount * qValue) - qe.q);
+		//System.out.println(this.getAgentName() + ": " + qe.q);
 	}
 
 }
