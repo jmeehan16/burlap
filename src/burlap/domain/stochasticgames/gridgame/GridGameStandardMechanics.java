@@ -413,7 +413,8 @@ public class GridGameStandardMechanics extends JointActionModel {
 				continue; //already resolved winner
 			}
 			List <Integer> competitors = collissionSets.get(agentId);
-			int winner = competitors.get(rand.nextInt(competitors.size()));
+			//int winner = competitors.get(rand.nextInt(competitors.size()));
+			int winner = competitors.get(0);
 			for(Integer a2 : competitors){
 				winners.put(a2, winner);
 			}
