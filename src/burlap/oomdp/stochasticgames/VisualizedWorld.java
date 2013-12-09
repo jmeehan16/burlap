@@ -108,6 +108,10 @@ public class VisualizedWorld extends World {
 		for(Agent a : agents){
 			a.gameStarting();
 		}
+		for(String key : agentCumulativeReward.keySet())
+		{
+			agentCumulativeReward.put(key, 0.0);
+		}
 		
 		
 		//currentState = game.generateState(agents);
@@ -135,6 +139,7 @@ public class VisualizedWorld extends World {
 		
 		for(Agent a : agents){
 			a.gameTerminated();
+			System.out.println(a.getAgentName() + ": " + agentCumulativeReward.get(a.getAgentName()));
 		}
 		
 		DPrint.cl(debugId, currentState.getCompleteStateDescription());

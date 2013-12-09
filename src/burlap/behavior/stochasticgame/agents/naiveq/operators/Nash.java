@@ -10,7 +10,7 @@ import burlap.oomdp.core.State;
 import burlap.solvers.BimatrixGeneralSumSolver;
 
 
-public class MinMax extends BackupOp {
+public class Nash extends BackupOp {
 	
 	public double performOp(SGQLOppAwareAgent a1, SGQLOppAwareAgent a2, State s)
 	{
@@ -32,8 +32,8 @@ public class MinMax extends BackupOp {
 			while(itr2.hasNext())
 			{
 				SGQValue val2 = itr2.next();
-				payout1[i][j] = (double)(val1.q - val2.q)/2.0;
-				payout2[i][j] = (double)(val2.q - val1.q)/2.0;
+				payout1[i][j] = val1.q;
+				payout2[i][j] = val2.q;
 				j++;
 			}
 			i++;
