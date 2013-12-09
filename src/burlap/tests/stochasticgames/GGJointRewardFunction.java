@@ -26,6 +26,8 @@ public class GGJointRewardFunction implements JointReward {
 	
 	double defaultReward = -1.;
 	double goalReward = 100.;
+	double redReward = 1000;
+	double blueReward = 100;
 	
 	public GGJointRewardFunction(Domain ggDomain){
 		agentInPersonalGoal = ggDomain.getPropFunction(GridGame.PFINPGOAL);

@@ -13,6 +13,7 @@ import burlap.oomdp.visualizer.Visualizer;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareAgent;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.CoCoQJA;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxMax;
+import burlap.behavior.stochasticgame.agents.naiveq.operators.Correlated;
 
 public class VisualizedWorld extends World {
 
@@ -46,7 +47,8 @@ public class VisualizedWorld extends World {
 		
 		if(agent1 instanceof SGQLOppAwareAgent && (
 				((SGQLOppAwareAgent)agent1).getOperator() instanceof MaxMax) || 
-				((SGQLOppAwareAgent)agent1).getOperator() instanceof CoCoQJA)
+				((SGQLOppAwareAgent)agent1).getOperator() instanceof CoCoQJA ||
+				((SGQLOppAwareAgent)agent1).getOperator() instanceof Correlated)
 		{
 			ja = ((SGQLOppAwareAgent)agent1).getJointAction(abstractedCurrent);
 		}
@@ -80,7 +82,8 @@ public class VisualizedWorld extends World {
 		
 		if(agent1 instanceof SGQLOppAwareAgent && (
 				((SGQLOppAwareAgent)agent1).getOperator() instanceof MaxMax) || 
-				((SGQLOppAwareAgent)agent1).getOperator() instanceof CoCoQJA)
+				((SGQLOppAwareAgent)agent1).getOperator() instanceof CoCoQJA ||
+				((SGQLOppAwareAgent)agent1).getOperator() instanceof Correlated)
 		{
 			for(Agent a : agents){
 				((SGQLOppAwareAgent)a).observeOutcomeJAQ(abstractedCurrent, ja, jointReward, abstractedPrime, tf.isTerminal(sp));

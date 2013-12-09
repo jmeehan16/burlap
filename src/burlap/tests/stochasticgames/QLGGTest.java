@@ -56,8 +56,8 @@ public class QLGGTest {
 		
 		//GridGameRevisited game = new GridGameExample();
 		//GridGameRevisited game = new CoordinatedGridGame();
-		GridGameRevisited game = new Turkey();
-		//GridGameRevisited game = new Incredible();
+		//GridGameRevisited game = new Turkey();
+		GridGameRevisited game = new Incredible();
 		//GridGameRevisited game = new FriendOrFoeGridGame();
 		//GridGameRevisited game = new PrisonerGridGame();
 		
@@ -100,11 +100,11 @@ public class QLGGTest {
 		((SGQLOppAwareAgent)a0).setOpponent((SGQLOppAwareAgent)a1);
 		((SGQLOppAwareAgent)a1).setOpponent((SGQLOppAwareAgent)a0);
 		
-		((SGQLOppAwareAgent)a0).setOperator(new CoCoQJA());
-		((SGQLOppAwareAgent)a1).setOperator(new CoCoQJA());
+		//((SGQLOppAwareAgent)a0).setOperator(new CoCoQJA());
+		//((SGQLOppAwareAgent)a1).setOperator(new CoCoQJA());
 		
-		//((SGQLOppAwareAgent)a0).setOperator(new Correlated());
-		//((SGQLOppAwareAgent)a1).setOperator(new Correlated());
+		((SGQLOppAwareAgent)a0).setOperator(new Correlated());
+		((SGQLOppAwareAgent)a1).setOperator(new Correlated());
 		
 		//((SGQLOppAwareAgent)a0).setOperator(new Nash());
 		//((SGQLOppAwareAgent)a1).setOperator(new Nash());
