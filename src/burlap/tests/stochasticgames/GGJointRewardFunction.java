@@ -51,6 +51,9 @@ public class GGJointRewardFunction implements JointReward {
 		for(GroundedProp gp : ipgps){
 			String agentName = gp.params[0];
 			if(gp.isTrue(sp)){
+				if(agentName == "default0"){
+					System.out.println(agentName);
+				}
 				rewards.put(agentName, goalReward);
 			}
 		}
