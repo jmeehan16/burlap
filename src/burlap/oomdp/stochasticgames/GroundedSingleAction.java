@@ -8,7 +8,7 @@ package burlap.oomdp.stochasticgames;
  * @author James MacGlashan
  *
  */
-public class GroundedSingleAction {
+public class GroundedSingleAction implements Comparable<GroundedSingleAction>{
 
 	public String actingAgent;
 	public SingleAction action;
@@ -58,6 +58,11 @@ public class GroundedSingleAction {
 	 */
 	public boolean isPamaeterized(){
 		return action.isPamaeterized();
+	}
+	
+	public boolean isActingAgent(String a)
+	{
+		return actingAgent.equals(a);
 	}
 	
 	
@@ -124,6 +129,10 @@ public class GroundedSingleAction {
 		}
 		
 		return true;
+	}
+	
+	public int compareTo(GroundedSingleAction gsa) {
+		return this.action.actionName.compareTo(gsa.action.actionName);
 	}
 
 }

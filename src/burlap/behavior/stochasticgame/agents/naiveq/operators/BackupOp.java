@@ -8,7 +8,7 @@ import burlap.oomdp.core.State;
 import burlap.oomdp.stochasticgames.Agent;
 import burlap.oomdp.stochasticgames.GroundedSingleAction;
 import burlap.oomdp.stochasticgames.JointAction;
-import burlap.behavior.stochasticgame.agents.naiveq.SGQLAgent;
+import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareAgent;
 
 public abstract class BackupOp {
 	
@@ -23,7 +23,7 @@ public abstract class BackupOp {
 		}
 	}
 	
-	public abstract double performOp(SGQLAgent a1, SGQLAgent a2, State s);
+	public abstract double performOp(SGQLOppAwareAgent a1, SGQLOppAwareAgent a2, State s);
 
 }
 

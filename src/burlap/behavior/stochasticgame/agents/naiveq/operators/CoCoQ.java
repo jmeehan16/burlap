@@ -22,6 +22,7 @@ public class CoCoQ extends BackupOp {
 		int i = 0;
 		int j = 0;
 		double maxmax = Double.NEGATIVE_INFINITY;
+		//double minmaxM = Double.NEGATIVE_INFINITY;
 		
 		Iterator<SGQValue> itr1 = thisAgentQVal.iterator();
 		Iterator<SGQValue> itr2 = otherAgentQVal.iterator();
@@ -36,8 +37,15 @@ public class CoCoQ extends BackupOp {
 				{
 					maxmax = val1.q + val2.q;
 				}
+				//if(val1.q + val2.q > minmaxM)
+				//{
+				//	minmaxM = val1.q - val2.q;
+				//}
 				payout1[i][j] = (double)(val1.q - val2.q)/2.0;
 				payout2[i][j] = (double)(val2.q - val1.q)/2.0;
+				
+				//payout1[i][j] = val1.q / 2.0;
+				//payout2[i][j] = (val2.q * -1.0)/2.0;
 				j++;
 			}
 			i++;
@@ -47,6 +55,7 @@ public class CoCoQ extends BackupOp {
 		
 
 		double minmax = BimatrixGeneralSumSolver.generalSumNash(payout1, payout2);
+		//double minmaxOp = BimatrixGeneralSumSolver.generalSumNash(payout2, payout1);
 		
 		//System.out.println("Coco: " + maxmax/2.0 + " + " + minmax);
 		

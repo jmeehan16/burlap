@@ -285,7 +285,7 @@ public class SGQLAgent extends Agent {
 		return qe;
 	}
 	
-	
+	 
 	/**
 	 * Returns maximum numeric Q-value for a given state
 	 * @param s the state for which the max Q-value should be returned

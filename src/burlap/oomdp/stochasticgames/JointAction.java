@@ -1,10 +1,13 @@
 package burlap.oomdp.stochasticgames;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import burlap.oomdp.core.State;
 
 
 /**
@@ -15,7 +18,7 @@ import java.util.Map;
  * @author James MacGlashan
  *
  */
-public class JointAction implements Iterable<GroundedSingleAction>{
+public class JointAction implements Iterable<GroundedSingleAction> , Comparable<JointAction>{
 
 	public Map <String, GroundedSingleAction>		actions;
 	
@@ -132,6 +135,67 @@ public class JointAction implements Iterable<GroundedSingleAction>{
 			}
 			
 		};
+	}
+	
+	
+	/**
+	 * Returns all possible joint actions given two agents, agent1 and agent2
+	 * @param s the state in which the agent would execute this action
+	 * @param agent1
+	 * @param agent2
+	 * @return all possible joint actions given two agents.
+	 */
+	public static List<JointAction> getAllPossibleJointActions(State s, Agent agent1, Agent agent2){
+		
+		List <JointAction> pos = new ArrayList<JointAction>();
+		
+		List <GroundedSingleAction> actions1 = SingleAction.getAllPossibleGroundedSingleActions(s, agent1.getAgentName(), (agent1.getAgentType()).actions);
+		List <GroundedSingleAction> actions2 = SingleAction.getAllPossibleGroundedSingleActions(s, agent2.getAgentName(), (agent2.getAgentType()).actions);
+		JointAction ja;
+		
+		for(GroundedSingleAction a1: actions1) {
+			for(GroundedSingleAction a2: actions2) {
+				ja = new JointAction(2);
+				ja.addAction(a1);
+				ja.addAction(a2);
+				pos.add(ja);
+			}
+		}
+		Collections.sort(pos);
+		return pos;
+		
+	}
+	
+	public boolean equals(Object o)
+	{
+		JointAction jao = (JointAction)o;
+		return (jao.toString().equals(this.toString()));
+	}
+
+	@Override
+	public int compareTo(JointAction o) {
+		ArrayList<String> s = new ArrayList<String>(this.actions.keySet());
+		Collections.sort(s);
+		
+		Iterator<String> iter = s.iterator();
+		String key = "";
+		
+		while(iter.hasNext())
+		{
+			key = iter.next();
+			if(o.actions.get(key).compareTo(this.actions.get(key)) < 0)
+			{
+				//System.out.println(o.actions.get(key).toString() + " < " + this.actions.get(key).toString() + " (-1)");
+				return -1;
+			}
+			else if(o.actions.get(key).compareTo(this.actions.get(key)) > 0)
+			{
+				//System.out.println(o.actions.get(key).toString() + " > " + this.actions.get(key).toString() + " (1)");
+				return 1;
+			}
+		}
+		System.out.println(o.actions.get(key).toString() + "==" + this.actions.get(key).toString() + " (0)");
+		return 0;
 	}
 	
 	
