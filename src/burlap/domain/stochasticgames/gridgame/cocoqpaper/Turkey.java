@@ -29,7 +29,7 @@ public class Turkey extends GridGameRevisited {
 		
 		//this method will create object instances for the number of agents, but they will have arbirary names
 		//and are not necessarily the same as the names of the agents in the world.
-		State s = GridGame.getCleanState(this.domain, this.numAgents, this.numGoals, 3, 2, this.width, this.height);
+		State s = GridGame.getCleanState(this.domain, this.numAgents, this.numGoals, 4, 2, this.width, this.height);
 		
 		setAgent(s, 0, 2, 0, 1);
 		setAgent(s, 1, 0, 0, 4);
@@ -38,8 +38,8 @@ public class Turkey extends GridGameRevisited {
 		setGoal(s, 1, 1, 2, 0); 
 		setGoal(s, 2, 0, 3, 5); 
 		
-		setHorizontalWall(s, 1, 1, 0, 0, 1);
-		setHorizontalWall(s, 2, 1, 3, 1, 1);
+		setHorizontalWall(s, 2, 1, 0, 0, 1);
+		setHorizontalWall(s, 3, 1, 3, 1, 1);
 		
 		
 		//rename the agent class object instances to match the name of the corresponding agents in the world 

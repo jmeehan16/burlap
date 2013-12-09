@@ -71,7 +71,7 @@ public class QLGGTest {
 		//parameters for q-learning
 		double discount = 0.99;
 		double learningRate = 0.1;
-		double defaultQ = 0.;
+		double defaultQ = 120.;
 		
 		//create a factory for Q-learning, since we're going to make both of our agents a Q-learning agent with the same algorithm parameters
 		//(alternatively, we could have just used the Q-learning constructor twice for each agent)
@@ -118,7 +118,7 @@ public class QLGGTest {
 		//State s = GridGame.getCleanState(domain, 2, 3, 3, 2, 5, 5);
 		
 		System.out.println("Starting training");
-		int ngames = 100000;
+		int ngames = 1000;
 		for(int i = 0; i < ngames; i++){
 			if(i % 10 == 0){
 				System.out.println("Game: " + i);
