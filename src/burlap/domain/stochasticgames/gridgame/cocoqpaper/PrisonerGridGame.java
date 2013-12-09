@@ -51,9 +51,9 @@ public class PrisonerGridGame extends  GridGameRevisited {
 		setAgent(s, 0, 5, 0, 1);
 		setAgent(s, 1, 3, 0, 4);
 		
-		setGoal(s, 0, 0, 0, 5);
+		setGoal(s, 0, 1, 0, 5);
 		setGoal(s, 1, 4, 0, 0); // neutral
-		setGoal(s, 2, 8, 0, 2);
+		setGoal(s, 2, 7, 0, 2);
 		
 		int numOfHorizontalCells = 0; //cells
 		setHorizontalWall(s, 2, 4, 1, numOfHorizontalCells, 1);

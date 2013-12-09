@@ -137,12 +137,9 @@ public class SGQLOppAwareAgent extends SGQLAgent {
 		
 		//otherwise an entry exists and we need to do the matching
 		
-		List <SGQJAValue> entries = qJAMap.get(shq);
+		List <SGQJAValue> entries = qJAMap.get(shq);		
 		List <SGQJAValue> returnedEntries = new ArrayList<SGQJAValue>(jas.size());
 		Map <String, String> matching = null;
-		
-		Collections.sort(entries);
-		Collections.sort(jas);
 		
 		if(entries.size() != jas.size())
 		{
@@ -173,8 +170,12 @@ public class SGQLOppAwareAgent extends SGQLAgent {
 			
 			return returnedEntries;
 		}
+		
+		Collections.sort(entries);
+		
 		return entries;
-		/** TODO In case the new code doesn't work
+		/**
+		// TODO In case the new code doesn't work
 		for(JointAction ja :jas){
 			JointAction transja = ja;
 			

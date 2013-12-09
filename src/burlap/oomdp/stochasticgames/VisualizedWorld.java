@@ -11,7 +11,7 @@ import burlap.oomdp.core.TerminalFunction;
 import burlap.oomdp.stochasticgames.explorers.SGVisualExplorer;
 import burlap.oomdp.visualizer.Visualizer;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareAgent;
-import burlap.behavior.stochasticgame.agents.naiveq.operators.CoCoQ;
+import burlap.behavior.stochasticgame.agents.naiveq.operators.CoCoQJA;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxMax;
 
 public class VisualizedWorld extends World {
@@ -45,7 +45,8 @@ public class VisualizedWorld extends World {
 		State abstractedCurrent = abstractionForAgents.abstraction(currentState);
 		
 		if(agent1 instanceof SGQLOppAwareAgent && (
-				((SGQLOppAwareAgent)agent1).getOperator() instanceof MaxMax))
+				((SGQLOppAwareAgent)agent1).getOperator() instanceof MaxMax) || 
+				((SGQLOppAwareAgent)agent1).getOperator() instanceof CoCoQJA)
 		{
 			ja = ((SGQLOppAwareAgent)agent1).getJointAction(abstractedCurrent);
 		}
@@ -78,7 +79,8 @@ public class VisualizedWorld extends World {
 		
 		
 		if(agent1 instanceof SGQLOppAwareAgent && (
-				((SGQLOppAwareAgent)agent1).getOperator() instanceof MaxMax))
+				((SGQLOppAwareAgent)agent1).getOperator() instanceof MaxMax) || 
+				((SGQLOppAwareAgent)agent1).getOperator() instanceof CoCoQJA)
 		{
 			for(Agent a : agents){
 				((SGQLOppAwareAgent)a).observeOutcomeJAQ(abstractedCurrent, ja, jointReward, abstractedPrime, tf.isTerminal(sp));

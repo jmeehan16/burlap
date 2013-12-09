@@ -182,14 +182,25 @@ public class TwoPersonZeroSumGameNash {
 		
 	}
 	
-	public static double[] getNash(double[][] A) throws Exception{
+	public static double getNash(double[][] A) {
 		
-		 double[] rowresult = RowSolver(A);
-		 double[] columnresult = RowSolver(transpose(A));
+		 double[] rowresult;
+		 double[] columnresult;
+		try {
+			rowresult = RowSolver(A);
+			//columnresult = RowSolver(transpose(A));
+			return rowresult[rowresult.length-1];
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(-1);
+			return 0.0;
+		}
+		 /**
 		 double[] result = new double[2];
-		 result[0] = rowresult[rowresult.length];
-		 result[1] = columnresult[columnresult.length];
-		 return result;
+		 result[0] = rowresult[rowresult.length-1];
+		 result[1] = columnresult[columnresult.length-1];
+		 */
 	}
 	 
 	 

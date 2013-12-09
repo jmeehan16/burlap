@@ -11,6 +11,7 @@ import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareAgent;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareFactory;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQValue;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.CoCoQ;
+import burlap.behavior.stochasticgame.agents.naiveq.operators.CoCoQJA;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxMax;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.MaxOp;
 import burlap.behavior.stochasticgame.agents.naiveq.operators.MinMax;
@@ -53,10 +54,10 @@ public class QLGGTest {
 		
 		//GridGameRevisited game = new GridGameExample();
 		//GridGameRevisited game = new CoordinatedGridGame();
-		//GridGameRevisited game = new Turkey();
+		GridGameRevisited game = new Turkey();
 		//GridGameRevisited game = new Incredible();
 		//GridGameRevisited game = new FriendOrFoeGridGame();
-		GridGameRevisited game = new PrisonerGridGame();
+		//GridGameRevisited game = new PrisonerGridGame();
 		
 		
 		SGDomain domain = (SGDomain)game.generateDomain();
@@ -97,8 +98,8 @@ public class QLGGTest {
 		((SGQLOppAwareAgent)a0).setOpponent((SGQLOppAwareAgent)a1);
 		((SGQLOppAwareAgent)a1).setOpponent((SGQLOppAwareAgent)a0);
 		
-		((SGQLOppAwareAgent)a0).setOperator(new MaxMax());
-		((SGQLOppAwareAgent)a1).setOperator(new MaxMax());
+		((SGQLOppAwareAgent)a0).setOperator(new CoCoQJA());
+		((SGQLOppAwareAgent)a1).setOperator(new CoCoQJA());
 		
 		//have the agents join the world
 		a0.joinWorld(w, at);
@@ -117,7 +118,7 @@ public class QLGGTest {
 		//State s = GridGame.getCleanState(domain, 2, 3, 3, 2, 5, 5);
 		
 		System.out.println("Starting training");
-		int ngames = 3000000;
+		int ngames = 100000;
 		for(int i = 0; i < ngames; i++){
 			if(i % 10 == 0){
 				System.out.println("Game: " + i);

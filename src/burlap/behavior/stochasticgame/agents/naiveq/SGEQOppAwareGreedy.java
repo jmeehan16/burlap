@@ -84,6 +84,72 @@ public class SGEQOppAwareGreedy extends SGEQGreedy {
 		}
 		return maxCands;
 	}
+	
+	public List<Integer> getMaxJointActionsCoop(State s, List<JointAction> allJAs) {
+
+		List<SGQJAValue> aVal1 = ((SGQLOppAwareAgent)agent).getAllJAQsFor(s);
+		List<SGQJAValue> aVal2 = opponent.getAllJAQsFor(s);
+		JointAction ja;
+		List<Integer> maxCands = new ArrayList<Integer>(allJAs.size());
+		
+		double maxQ = Double.NEGATIVE_INFINITY;
+		double nowQ = Double.NEGATIVE_INFINITY;
+		
+		Collections.sort(aVal1);
+		Collections.sort(aVal2);
+		
+		for(int i = 0; i < allJAs.size(); i++) {
+			ja = allJAs.get(i);
+			nowQ = aVal1.get(i).q;
+			nowQ += aVal2.get(i).q;
+			
+			//nowQ = aVal1.get(aVal1.lastIndexOf(ja.action(agent.getAgentName()))).q;
+			//nowQ += aVal2.get(aVal2.lastIndexOf(ja.action(opponent.getAgentName()))).q;
+			if(nowQ > maxQ) {
+				maxCands.clear();
+				maxCands.add(i);
+				maxQ = nowQ;
+			}
+			else if(nowQ == maxQ){
+				maxCands.add(i);
+			}
+		}
+		return maxCands;
+	}
+	
+	public List<Integer> getMaxJointActionsCompetitive(State s, List<JointAction> allJAs) {
+
+		List<SGQJAValue> aVal1 = ((SGQLOppAwareAgent)agent).getAllJAQsFor(s);
+		List<SGQJAValue> aVal2 = opponent.getAllJAQsFor(s);
+		JointAction ja;
+		List<Integer> maxCands = new ArrayList<Integer>(allJAs.size());
+		
+		double maxQ = Double.NEGATIVE_INFINITY;
+		double nowQ = Double.NEGATIVE_INFINITY;
+		
+		Collections.sort(aVal1);
+		Collections.sort(aVal2);
+		
+		for(int i = 0; i < allJAs.size(); i++) {
+			ja = allJAs.get(i);
+			nowQ = aVal1.get(i).q;
+			nowQ += aVal2.get(i).q;
+			
+			//nowQ = aVal1.get(aVal1.lastIndexOf(ja.action(agent.getAgentName()))).q;
+			//nowQ += aVal2.get(aVal2.lastIndexOf(ja.action(opponent.getAgentName()))).q;
+			if(nowQ > maxQ) {
+				maxCands.clear();
+				maxCands.add(i);
+				maxQ = nowQ;
+			}
+			else if(nowQ == maxQ){
+				maxCands.add(i);
+			}
+		}
+		return maxCands;
+	}
+	
+	
 	/**
 	@Override
 	public GroundedSingleAction getAction(State s) {

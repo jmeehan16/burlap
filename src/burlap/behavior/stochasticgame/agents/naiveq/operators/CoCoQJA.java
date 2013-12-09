@@ -9,6 +9,7 @@ import burlap.behavior.stochasticgame.agents.naiveq.SGQLOppAwareAgent;
 import burlap.behavior.stochasticgame.agents.naiveq.SGQValue;
 import burlap.oomdp.core.State;
 import burlap.solvers.BimatrixGeneralSumSolver;
+import burlap.nash.TwoPersonZeroSumGameNash;
 
 
 public class CoCoQJA extends BackupOp {
@@ -38,9 +39,8 @@ public class CoCoQJA extends BackupOp {
 				maxmax = val1 + val2;
 			}
 		}
-		
+		//double minmax = TwoPersonZeroSumGameNash.getNash(payout1);
 		double minmax = BimatrixGeneralSumSolver.generalSumNash(payout1, payout2);
-		//double minmaxOp = BimatrixGeneralSumSolver.generalSumNash(payout2, payout1);
 		
 		//System.out.println("Coco: " + maxmax/2.0 + " + " + minmax);
 		
