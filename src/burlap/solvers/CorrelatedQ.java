@@ -42,18 +42,18 @@ public class CorrelatedQ {
 	 * @param payoffs1
 	 * @param payoffs2
 	 */
-public static void CorrelatedQ(double[][] payoffs1, double[][] payoffs2){
+public static double CorrelatedQ(double[][] payoffs1, double[][] payoffs2){
 		
 	    CorrelatedQ solver = new CorrelatedQ();
 	    double[][] jointProbs = solver.solve(payoffs1, payoffs2);
 		
 		double ExpectedpayoffforPlayer1 = getExpectedPayoffsForPlayer(payoffs1, jointProbs);
-		double ExpectedpayoffforPlayer2 = getExpectedPayoffsForPlayer(payoffs2, jointProbs);
+		//double ExpectedpayoffforPlayer2 = getExpectedPayoffsForPlayer(payoffs2, jointProbs);
 		
-		//return ExpectedpayoffforPlayer1;
+		return ExpectedpayoffforPlayer1;
 		
-		System.out.println("player1Strategy: " + Arrays.toString(jointProbs[0]) +  " player1payoff " + ExpectedpayoffforPlayer1 );
-		System.out.println("player2Strategy: " + Arrays.toString(jointProbs[1]) + " player2payoff " + ExpectedpayoffforPlayer2);
+		//System.out.println("player1Strategy: " + Arrays.toString(jointProbs[0]) +  " player1payoff " + ExpectedpayoffforPlayer1 );
+		//System.out.println("player2Strategy: " + Arrays.toString(jointProbs[1]) + " player2payoff " + ExpectedpayoffforPlayer2);
 		
 		
 	}
